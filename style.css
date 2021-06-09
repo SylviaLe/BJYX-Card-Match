@@ -1,0 +1,100 @@
+body{
+    height: 100%;
+    background: no-repeat linear-gradient(120deg, #ff0a45 0%, #ff4261 23%,  #ffad97 100%);
+}
+
+
+img.front-face{
+    width: 90%;
+}
+
+img.back-face{
+    width: 90%;
+    border-radius: 5px;
+}
+
+.memory-card{
+    border-radius: 20px;
+    height: 28vw;
+    width: 24.1%;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    position: relative;
+    background-color: white;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.4);
+    margin: 3px;
+
+    /* The 3d effect */
+    transform: scale(1);
+    perspective: 1000px;
+    /* https://www.w3schools.com/css/css3_variables.asp */
+    /* perspective gives a more 3d look https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/perspective()*/
+    /* https://thoughtbot.com/blog/transitions-and-transforms */
+    transform-style: preserve-3d;
+    /* preserve the 3d animation, so that things in the front can now go to the back */
+    transition: 200ms;
+    /* delay the aniimation so you can see the flipping effect */
+}
+
+.memory-card:active{
+    transform: scale(.95);
+    transition: transform .2s;
+}
+
+.memory-card.flip{
+    transform: rotateY(180deg);
+    background: no-repeat linear-gradient(120deg, #87cefa 0%,  #cec0d8 43%, #ffb7c1 100%);
+}
+
+.front-face,.back-face{
+    position: absolute;
+    backface-visibility: hidden; 
+}
+
+.back-face{
+    transform: rotateY(180deg);
+    /* mirror flip the answer. Then it will be hidden by the backface-visibility: ; */
+  }
+
+.memory-card.matched{
+    visibility: hidden;
+}
+
+
+
+.overlay-text {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: none;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(120deg, #87cefa 0%,  #cec0d8 43%, #ffb7c1 100%);
+    color: white;
+    transition: background-color 500ms, font-size 500ms;
+}
+
+.overlay-text-small {
+    font-size: .3em;
+}
+
+.overlay-text.visible {
+    display: flex;
+    animation: overlay-grow 500ms forwards;
+}
+
+@keyframes overlay-grow {
+    from {
+      background-color: rgba(0, 0, 0, 0);
+      font-size: 0;
+    }
+    to {
+      background-color: rgba(0, 0, 0, .8);
+      font-size: 10em;
+    }
+  }
